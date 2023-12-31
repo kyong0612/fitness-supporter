@@ -22,3 +22,12 @@ jobs:
 
       - name: golangci-lint
         run: make lint
+  
+  docker:
+    name: docker buildable
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: buildable
+        run: docker build -t buildable .
