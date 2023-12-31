@@ -22,3 +22,6 @@ go.work
 
 # Bin
 bin/
+
+# env
+.env
