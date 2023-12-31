@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - '**'
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
