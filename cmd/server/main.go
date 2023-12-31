@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kyong0612/fitness-saporter/config"
 	"github.com/kyong0612/fitness-saporter/handler"
+	"github.com/kyong0612/fitness-saporter/infra/config"
 )
 
 func main() {
