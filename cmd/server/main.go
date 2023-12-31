@@ -1,14 +1,24 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
+	"os"
 
+	"github.com/kyong0612/fitness-saporter/config"
 	"github.com/kyong0612/fitness-saporter/handler"
 )
 
 func main() {
-	slog.Info("Server is running on port 8080")
+	// Load config
+	if err := config.New(); err != nil {
+		slog.Error(err.Error())
+		os.Exit(1) // Exit with error.
+	}
 
-	http.ListenAndServe(":8080", handler.New())
+	port := fmt.Sprintf(":%d", config.Get().Port)
+	slog.Info("Server is running on port " + port)
+
+	http.ListenAndServe(port, handler.New())
 }
