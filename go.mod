@@ -3,6 +3,7 @@ module github.com/kyong0612/fitness-saporter
 go 1.21.0
 
 require (
+	github.com/caarlos0/env/v10 v10.0.0
 	github.com/go-chi/chi v1.5.5
 	github.com/golangci/golangci-lint v1.55.2
 )
@@ -34,7 +35,6 @@ require (
 	github.com/breml/errchkjson v0.3.6 // indirect
 	github.com/butuzov/ireturn v0.2.2 // indirect
 	github.com/butuzov/mirror v1.1.0 // indirect
-	github.com/caarlos0/env/v10 v10.0.0 // indirect
 	github.com/catenacyber/perfsprint v0.2.0 // indirect
 	github.com/ccojocar/zxcvbn-go v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
