@@ -1,7 +1,6 @@
 {
-    "recommendations": [
-        "esbenp.prettier-vscode",
-        "DavidAnson.vscode-markdownlint"
-    ]
-  }
-  
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "DavidAnson.vscode-markdownlint"
+  ]
+}
