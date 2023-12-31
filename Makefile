@@ -7,8 +7,15 @@ PHONY: lint
 lint:
 	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run
 
+PHONY: server.run
+server.run:
+	go build -mod=readonly -v -o bin/server ./cmd/server && ./bin/server
 
-PHONY: build.rest
-build.rest:
-	CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o bin/rest ./cmd/rest
+PHONY: server.build
+server.build:
+	CGO_ENABLED=0 go build -mod=readonly -v -o bin/server ./cmd/server
+
+PHONY: compose.up
+compose.up:
+	docker compose up -d
 
