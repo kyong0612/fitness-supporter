@@ -19,3 +19,15 @@ brew install direnv
 ```bash
 make init
 ```
+
+3. run server
+
+```bash
+make run
+```
+
+4. health check
+
+```bash
+curl http://localhost:8080/healthcheck
+```

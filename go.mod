@@ -2,7 +2,10 @@ module github.com/kyong0612/fitness-saporter
 
 go 1.21.0
 
-require github.com/golangci/golangci-lint v1.55.2
+require (
+	github.com/go-chi/chi v1.5.5
+	github.com/golangci/golangci-lint v1.55.2
+)
 
 require (
 	4d63.com/gocheckcompilerdirectives v1.2.1 // indirect
