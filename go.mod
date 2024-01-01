@@ -1,4 +1,4 @@
-module github.com/kyong0612/fitness-saporter
+module github.com/kyong0612/fitness-supporter
 
 go 1.21.5
 

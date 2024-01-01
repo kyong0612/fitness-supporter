@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/kyong0612/fitness-saporter/infra/config"
+	"github.com/kyong0612/fitness-supporter/infra/config"
 )
 
 func Init() {

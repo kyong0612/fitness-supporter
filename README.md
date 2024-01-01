@@ -1,4 +1,4 @@
-# fitness-saporter
+# fitness-supporter
 
 - ランニングマシーン等のワークアウト結果の写真を送信することで自動的に集計する
   - gemini pro vision

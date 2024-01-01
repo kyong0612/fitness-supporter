@@ -7,9 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/kyong0612/fitness-saporter/handler"
-	"github.com/kyong0612/fitness-saporter/infra/config"
-	"github.com/kyong0612/fitness-saporter/infra/logger"
+	"github.com/kyong0612/fitness-supporter/handler"
+	"github.com/kyong0612/fitness-supporter/infra/config"
+	"github.com/kyong0612/fitness-supporter/infra/logger"
 )
 
 func main() {

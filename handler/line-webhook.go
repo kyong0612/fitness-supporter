@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/kyong0612/fitness-saporter/infra/line"
+	"github.com/kyong0612/fitness-supporter/infra/line"
 )
 
 func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {

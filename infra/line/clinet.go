@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/cockroachdb/errors"
-	"github.com/kyong0612/fitness-saporter/infra/config"
+	"github.com/kyong0612/fitness-supporter/infra/config"
 	"github.com/line/line-bot-sdk-go/v8/linebot/messaging_api"
 )
 
