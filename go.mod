@@ -4,8 +4,10 @@ go 1.21.0
 
 require (
 	github.com/caarlos0/env/v10 v10.0.0
+	github.com/cockroachdb/errors v1.11.1
 	github.com/go-chi/chi v1.5.5
 	github.com/golangci/golangci-lint v1.55.2
+	github.com/line/line-bot-sdk-go/v8 v8.2.0
 )
 
 require (
@@ -40,7 +42,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/charithe/durationcheck v0.0.10 // indirect
 	github.com/chavacava/garif v0.1.0 // indirect
-	github.com/cockroachdb/errors v1.11.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20230118201751-21c54148d20b // indirect
 	github.com/cockroachdb/redact v1.1.5 // indirect
 	github.com/curioswitch/go-reassign v0.2.0 // indirect
@@ -105,7 +106,6 @@ require (
 	github.com/ldez/gomoddirectives v0.2.3 // indirect
 	github.com/ldez/tagliatelle v0.5.0 // indirect
 	github.com/leonklingele/grouper v1.1.1 // indirect
-	github.com/line/line-bot-sdk-go/v8 v8.2.0 // indirect
 	github.com/lufeee/execinquery v1.2.1 // indirect
 	github.com/macabu/inamedparam v0.1.2 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
