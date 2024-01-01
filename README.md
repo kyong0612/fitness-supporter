@@ -1,9 +1,11 @@
 # fitness-saporter
 
 - ランニングマシーン等のワークアウト結果の写真を送信することで自動的に集計する
-  - geminit pro vision
+  - gemini pro vision
   - go
   - cloud run
+  - cloud deploy
+  - google cloud storage
   - bigquery
 
 ## int for developer
@@ -18,4 +20,16 @@ brew install direnv
 
 ```bash
 make init
+```
+
+3. run server
+
+```bash
+make run
+```
+
+4. health check
+
+```bash
+curl http://localhost:8080/healthcheck
 ```
