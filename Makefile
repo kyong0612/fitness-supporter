@@ -1,3 +1,5 @@
+include .env
+
 PHONY: init
 init:
 	cp .env.sample .env
@@ -23,3 +25,19 @@ PHONY: compose.up
 compose.up:
 	@docker compose up -d
 
+
+PHONY: deploy.apply
+deploy.apply:
+	gcloud deploy apply \
+  		--file=.clouddeploy/clouddeploy.yaml \
+  		--region=asia-northeast1 \
+  		--project=kyong0612-lab
+
+PHONY: deploy.release
+deploy.release:
+	gcloud deploy releases create munual-release-$(shell date +%Y%m%d%H%M%S) \
+		--source=.clouddeploy \
+  		--project=kyong0612-lab \
+  		--region=asia-northeast1 \
+  		--delivery-pipeline=fitness-support \
+		--deploy-parameters="line_token=$(LINE_CHANNEL_TOKEN)"
