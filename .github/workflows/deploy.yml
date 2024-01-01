@@ -1,0 +1,64 @@
+name: Build app and create a release in Cloud Deploy
+on:
+  push:
+    tags:
+      - v**
+
+env:
+  PROJECT_ID: kyong0612-lab
+  GAR_LOCATION: asia-northeast1
+  REGION: asia-northeast1
+  APP: fitness-supporter
+  RELEASE_NAME: "" # will be set by the workflow
+
+jobs:
+  deploy:
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+
+      - name: WorkloadIdentityAuth
+        id: WorkloadIdentityAuth
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ env.PROJECT_ID }}"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+        with:
+          project_id: "${{ env.PROJECT_ID }}"
+
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
+
+      - name: "Build and push container"
+        run: |-
+          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/prd:latest"
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/prd:latest"
+
+      - name: "Create release name"
+        run: |-
+          echo "RELEASE_NAME=${{ env.APP }}-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
+
+      - name: "Create Cloud Deploy release"
+        id: "release"
+        uses: "google-github-actions/create-cloud-deploy-release@v0"
+        with:
+          delivery_pipeline: "${{ env.APP }}"
+          name: "${{ env.RELEASE_NAME }}"
+          region: "${{ env.REGION }}"
+          skaffold_file: ".clouddeploy/skaffold.yaml"
+          deploy_parameters: |-
+            line_token=${{ secrets.LINE_TOKEN }}
+
+      - name: "Report Cloud Deploy release"
+        run: |-
+          echo "Created release ${{ steps.release.outputs.name }} "
+          echo "Release link ${{ steps.release.outputs.link }} "

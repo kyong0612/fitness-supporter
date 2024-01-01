@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: fitness-supporter-prod
+spec:
+  template:
+    spec:
+      containers:
+        - image: asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
+          name: app
+          env:
+            - name: ENV
+              value: production
+            - name: LINE_CHANNEL_TOKEN
+              value: dummy # from-param: ${line_token}
