@@ -55,7 +55,7 @@ gcloud iam workload-identity-pools providers describe "fitness-supporter" \
   --format="value(name)"
 ```
 
-- set CD
+- set CD parameter
 
 ```bash
 - uses: 'google-github-actions/auth@v2'
