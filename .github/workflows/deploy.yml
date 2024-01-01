@@ -8,7 +8,7 @@ env:
   PROJECT_ID: kyong0612-lab
   GAR_LOCATION: asia-northeast1
   REGION: asia-northeast1
-  APP: fitness-supporter
+  APP: fitness-support
   RELEASE_NAME: "" # will be set by the workflow
 
 jobs:
