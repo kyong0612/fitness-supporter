@@ -2,7 +2,7 @@ name: lint
 on:
   pull_request:
     branches:
-      - '**'
+      - "**"
     types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ jobs:
 
       - name: golangci-lint
         run: make lint
-  
+
   docker:
     name: docker buildable
     runs-on: ubuntu-latest
