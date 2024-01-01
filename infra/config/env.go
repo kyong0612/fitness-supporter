@@ -5,6 +5,7 @@ import (
 )
 
 type config struct {
+	ENV              string `env:"ENV" envDefault:"local"`
 	Port             int    `env:"PORT" envDefault:"8080"`
 	LINEChannelToken string `env:"LINE_CHANNEL_TOKEN,required"`
 }
