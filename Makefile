@@ -7,6 +7,10 @@ PHONY: lint
 lint:
 	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run
 
+PHONY: lint.fix
+lint.fix:
+	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run --fix
+
 PHONY: server.run
 server.run:
 	@go build -mod=readonly -v -o bin/server ./cmd/server && ./bin/server

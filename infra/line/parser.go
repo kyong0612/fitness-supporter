@@ -47,6 +47,7 @@ func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent
 	)
 
 	result := make([]MessageEvent, 0, len(cb.Events))
+
 	for _, event := range cb.Events {
 		switch e := event.(type) {
 		case webhook.MessageEvent:

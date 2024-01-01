@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 	"time"
 
@@ -20,7 +21,10 @@ func New() http.Handler {
 
 	r.Get("/healthcheck", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("I'm alive!"))
+		_, err := w.Write([]byte("I'm alive!"))
+		if err != nil {
+			slog.Error(err.Error())
+		}
 	})
 
 	r.Group(func(r chi.Router) {

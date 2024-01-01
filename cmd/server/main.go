@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/kyong0612/fitness-saporter/handler"
 	"github.com/kyong0612/fitness-saporter/infra/config"
@@ -24,5 +25,14 @@ func main() {
 	port := fmt.Sprintf(":%d", config.Get().Port)
 	slog.Info("Server is running on port " + port)
 
-	http.ListenAndServe(port, handler.New())
+	srv := &http.Server{
+		Addr:              port,
+		Handler:           handler.New(),
+		ReadHeaderTimeout: 20 * time.Second,
+		WriteTimeout:      20 * time.Second,
+	}
+	if err := srv.ListenAndServe(); err != nil {
+		slog.Error(err.Error())
+		os.Exit(1) // Exit with error.
+	}
 }

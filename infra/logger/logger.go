@@ -8,11 +8,11 @@ import (
 )
 
 func Init() {
-	var slogHandler slog.Handler
 	opt := slog.HandlerOptions{
 		AddSource: true,
 	}
 
+	var slogHandler slog.Handler
 	if config.Get().ENV == "local" {
 		slogHandler = slog.NewTextHandler(os.Stdout, &opt)
 	} else {
@@ -29,6 +29,7 @@ func Init() {
 					Value: a.Value,
 				}
 			}
+
 			return a
 		}
 		slogHandler = slog.NewJSONHandler(os.Stdout, &opt)

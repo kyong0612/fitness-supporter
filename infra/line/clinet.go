@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/cockroachdb/errors"
 	"github.com/kyong0612/fitness-saporter/infra/config"
 	"github.com/line/line-bot-sdk-go/v8/linebot/messaging_api"
 )
@@ -25,7 +26,7 @@ func NewClient() (Client, error) {
 		config.Get().LINEChannelToken,
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to create line client")
 	}
 
 	return client{
@@ -48,7 +49,7 @@ func (c client) ReplyMessage(ctx context.Context, replyToken string, messages []
 		},
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to reply message")
 	}
 
 	slog.InfoContext(ctx, fmt.Sprintf("status code: (%v), x-line-request-id: (%v)", resp.StatusCode, resp.Header.Get("x-line-request-id")))

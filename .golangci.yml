@@ -110,6 +110,14 @@ linters:
     - nosnakecase
     - structcheck
     - varcheck
+    - depguard
+    - exhaustruct
+    - gomnd
+    - varnamelen
+    - gochecknoglobals
+    - revive
+    - ireturn
+    - lll
   # Enable presets.
   # https://golangci-lint.run/usage/linters
   # Default: []
