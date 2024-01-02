@@ -70,6 +70,7 @@ func generateReply(ctx context.Context, event line.MessageEvent) (string, error)
 	}
 
 	var replyMsg string
+
 	switch event.Type {
 	case line.MessageTypeText:
 		replyMsg, err = gemini.GenerateContentByText(ctx, event.Content)

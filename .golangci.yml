@@ -118,6 +118,7 @@ linters:
     - revive
     - ireturn
     - lll
+    - gosmopolitan
   # Enable presets.
   # https://golangci-lint.run/usage/linters
   # Default: []

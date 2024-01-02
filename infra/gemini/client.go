@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/cockroachdb/errors"
 	"github.com/google/generative-ai-go/genai"
 	"github.com/kyong0612/fitness-supporter/infra/config"
 	"google.golang.org/api/option"
@@ -24,7 +25,7 @@ func NewClient(ctx context.Context) (Client, error) {
 			config.Get().GeminiAPIKey,
 		))
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to create gemini client")
 	}
 
 	return &client{c}, nil
@@ -35,7 +36,7 @@ func (c client) GenerateContentByText(ctx context.Context, input string) (string
 
 	resp, err := modal.GenerateContent(ctx, genai.Text(input))
 	if err != nil {
-		return "", err
+		return "", errors.Wrap(err, "failed to generate content by text")
 	}
 
 	return fmt.Sprintln(resp.Candidates[0].Content.Parts[0]), nil
