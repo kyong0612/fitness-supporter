@@ -63,3 +63,13 @@ gcloud iam workload-identity-pools providers describe "fitness-supporter" \
     project_id: 'my-project'
     workload_identity_provider: '...' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
 ```
+
+- 最終的に必要になったSAへの権限
+
+```md
+github-action@kyong0612-lab.iam.gserviceaccount.com github-action 
+Artifact Registry 書き込み
+Cloud Deploy オペレーター
+サービス アカウント ユーザー
+ストレージ管理者
+```
