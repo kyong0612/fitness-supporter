@@ -93,7 +93,9 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 			return "", errors.Wrap(err, "failed to read response body")
 		}
 
-		replyMsg, err = gemini.GenerateContentByImage(ctx, file)
+		minetype := resp.Header.Get("Content-Type")
+
+		replyMsg, err = gemini.GenerateContentByImage(ctx, minetype, file)
 		if err != nil {
 			return "", errors.Wrap(err, "failed to generate content by image")
 		}

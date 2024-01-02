@@ -16,7 +16,7 @@ type client struct {
 
 type Client interface {
 	GenerateContentByText(ctx context.Context, input string) (string, error)
-	GenerateContentByImage(ctx context.Context, input []byte) (string, error)
+	GenerateContentByImage(ctx context.Context, minetype string, input []byte) (string, error)
 	Close()
 }
 
@@ -43,7 +43,7 @@ func (c client) GenerateContentByText(ctx context.Context, input string) (string
 	return fmt.Sprintln(resp.Candidates[0].Content.Parts[0]), nil
 }
 
-func (c client) GenerateContentByImage(ctx context.Context, input []byte) (string, error) {
+func (c client) GenerateContentByImage(ctx context.Context, minetype string, input []byte) (string, error) {
 
 	if len(input) == 0 {
 		return "", errors.New("input image is empty")
@@ -52,8 +52,11 @@ func (c client) GenerateContentByImage(ctx context.Context, input []byte) (strin
 	modal := c.GenerativeModel("gemini-pro-vision")
 
 	resp, err := modal.GenerateContent(ctx,
-		genai.ImageData("jpeg", input),
 		genai.Text(PromptImageReplyInput()),
+		genai.Blob{
+			MIMEType: minetype,
+			Data:     input,
+		},
 	)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to generate content by image")
