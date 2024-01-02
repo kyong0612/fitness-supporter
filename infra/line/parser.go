@@ -37,7 +37,7 @@ func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent
 	)
 
 	cb, err := webhook.ParseRequest(
-		config.Get().LINEChannelToken,
+		config.Get().LINEChannelSecret,
 		req,
 	)
 	if err != nil {

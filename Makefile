@@ -51,4 +51,4 @@ deploy.release:
   		--project=kyong0612-lab \
   		--region=asia-northeast1 \
   		--delivery-pipeline=fitness-support \
-		--deploy-parameters="line_token=$(LINE_CHANNEL_TOKEN)"
+		--deploy-parameters="line_secret_token=$(LINE_CHANNEL_SECRET),line_access_token=$(LINE_CHANNEL_ACCESS_TOKEN)"

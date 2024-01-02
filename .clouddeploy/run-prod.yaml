@@ -14,5 +14,7 @@ spec:
           env:
             - name: ENV
               value: production
-            - name: LINE_CHANNEL_TOKEN
-              value: dummy # from-param: ${line_token}
+            - name: LINE_CHANNEL_SECRET
+              value: dummy # from-param: ${line_secret_token}
+            - name: LINE_CHANNEL_ACCESS_TOKEN
+              value: dummy # from-param: ${line_access_token}

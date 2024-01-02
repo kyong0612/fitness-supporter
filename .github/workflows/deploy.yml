@@ -57,7 +57,8 @@ jobs:
           region: "${{ env.REGION }}"
           skaffold_file: ".clouddeploy/skaffold.yaml"
           deploy_parameters: |-
-            line_token=${{ secrets.LINE_TOKEN }}
+            line_secret_token=${{ secrets.LINE_CHANNEL_SECRET }}
+            line_access_token=${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
 
       - name: "Report Cloud Deploy release"
         run: |-

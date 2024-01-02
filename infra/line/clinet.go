@@ -23,7 +23,7 @@ type client struct {
 
 func NewClient() (Client, error) {
 	bot, err := messaging_api.NewMessagingApiAPI(
-		config.Get().LINEChannelToken,
+		config.Get().LINEChannelAccessToken,
 	)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create line client")
