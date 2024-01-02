@@ -66,7 +66,7 @@ func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent
 				result = append(result, MessageEvent{
 					ReplyToken: replyToken,
 					Type:       "image",
-					Content:    message.ContentProvider.OriginalContentUrl,
+					Content:    message.Id, // NOTE: messageIDを元に画像を取得する(ref: https://developers.line.biz/ja/reference/messaging-api/#get-content)
 				})
 			default:
 				slog.WarnContext(
