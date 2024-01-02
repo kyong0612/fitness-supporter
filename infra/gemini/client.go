@@ -44,7 +44,6 @@ func (c client) GenerateContentByText(ctx context.Context, input string) (string
 }
 
 func (c client) GenerateContentByImage(ctx context.Context, minetype string, input []byte) (string, error) {
-
 	if len(input) == 0 {
 		return "", errors.New("input image is empty")
 	}

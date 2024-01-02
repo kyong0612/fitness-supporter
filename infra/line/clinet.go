@@ -14,7 +14,7 @@ import (
 
 type Client interface {
 	ReplyMessage(ctx context.Context, replyToken string, messages []string) (*http.Response, error)
-	GetContent(ctx context.Context, messageId string) (*http.Response, error)
+	GetContent(ctx context.Context, messageID string) (*http.Response, error)
 }
 
 type client struct {
@@ -66,8 +66,8 @@ func (c client) ReplyMessage(ctx context.Context, replyToken string, messages []
 	return resp, nil
 }
 
-func (c client) GetContent(ctx context.Context, messageId string) (*http.Response, error) {
-	resp, err := c.blobbot.GetMessageContent(messageId)
+func (c client) GetContent(ctx context.Context, messageID string) (*http.Response, error) {
+	resp, err := c.blobbot.GetMessageContent(messageID)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get message content")
 	}
