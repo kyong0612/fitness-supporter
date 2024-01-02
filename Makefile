@@ -25,6 +25,11 @@ PHONY: compose.up
 compose.up:
 	@docker compose up -d
 
+PHONY: deploy.all
+deploy.all: 
+	make deploy.apply
+	make deploy.build 
+	make deploy.release
 
 PHONY: deploy.apply
 deploy.apply:
@@ -32,6 +37,12 @@ deploy.apply:
   		--file=.clouddeploy/clouddeploy.yaml \
   		--region=asia-northeast1 \
   		--project=kyong0612-lab
+
+PHONY: deploy.build
+deploy.build:
+	@-docker image rm asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd
+	@docker buildx build . --platform linux/amd64 --no-cache --tag asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
+	@docker push asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
 
 PHONY: deploy.release
 deploy.release:
