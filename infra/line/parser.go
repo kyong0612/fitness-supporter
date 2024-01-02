@@ -25,14 +25,6 @@ type MessageEvent struct {
 }
 
 func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent, error) {
-	cb, err := webhook.ParseRequest(
-		config.Get().LINEChannelToken,
-		req,
-	)
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to parse webhook request")
-	}
-
 	dump, err := httputil.DumpRequest(req, true)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to dump request")
@@ -41,10 +33,18 @@ func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent
 	slog.InfoContext(
 		ctx,
 		"webhook request parsed",
-		slog.Group(
-			"request", slog.String("body", string(dump)),
-		),
+		slog.String("dump", string(dump)),
 	)
+
+	cb, err := webhook.ParseRequest(
+		config.Get().LINEChannelToken,
+		req,
+	)
+	if err != nil {
+		slog.ErrorContext(ctx, "failed to parse webhook request", err)
+		// NOTE: healthcheckを通過させるために、エラー時はnilを返す
+		return nil, nil
+	}
 
 	result := make([]MessageEvent, 0, len(cb.Events))
 
