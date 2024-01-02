@@ -10,6 +10,7 @@ type config struct {
 	Port                   int    `env:"PORT"                               envDefault:"8080"`
 	LINEChannelSecret      string `env:"LINE_CHANNEL_SECRET,required"`
 	LINEChannelAccessToken string `env:"LINE_CHANNEL_ACCESS_TOKEN,required"`
+	GeminiAPIKey           string `env:"GEMINI_API_KEY,required"`
 }
 
 var cfg config

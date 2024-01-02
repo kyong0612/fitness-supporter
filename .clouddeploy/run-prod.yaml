@@ -18,3 +18,5 @@ spec:
               value: dummy # from-param: ${line_secret_token}
             - name: LINE_CHANNEL_ACCESS_TOKEN
               value: dummy # from-param: ${line_access_token}
+            - name: GEMINI_API_KEY
+              value: dummy # from-param: ${gemini_key}
