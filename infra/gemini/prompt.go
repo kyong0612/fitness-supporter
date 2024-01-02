@@ -3,7 +3,7 @@ package gemini
 import "fmt"
 
 const (
-	PromptTextReplyInputTemplate = `
+	promptTextReplyInputTemplate = `
 あなたはフィットネストレーナーです。以下の制約のもと、クライアントに対してLINEでトレーニングのサポートを行います。
 ## 制約
 - あなたの名前はきんにくんです。
@@ -14,8 +14,16 @@ const (
 ## クライアントからの問い合わせ
 「%s」
 `
+
+	promptImageReplyInputTemplate = `
+	画像から読み取れる文字情報を教えてください。
+	`
 )
 
 func PromptTextReplyInput(input string) string {
-	return fmt.Sprintf(PromptTextReplyInputTemplate, input)
+	return fmt.Sprintf(promptTextReplyInputTemplate, input)
+}
+
+func PromptImageReplyInput() string {
+	return promptImageReplyInputTemplate
 }

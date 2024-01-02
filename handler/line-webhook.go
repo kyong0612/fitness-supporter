@@ -36,7 +36,7 @@ func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, event := range events {
-		replyMsg, err := generateReply(ctx, event)
+		replyMsg, err := generateReply(ctx, line, event)
 		if err != nil {
 			slog.ErrorContext(ctx, "failed to generate reply message",
 				slog.Any("err", err),
@@ -63,11 +63,12 @@ func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func generateReply(ctx context.Context, event line.MessageEvent) (string, error) {
+func generateReply(ctx context.Context, lineClient line.Client, event line.MessageEvent) (string, error) {
 	gemini, err := gemini.NewClient(ctx)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to create gemini client")
 	}
+	defer gemini.Close()
 
 	var replyMsg string
 
@@ -77,8 +78,28 @@ func generateReply(ctx context.Context, event line.MessageEvent) (string, error)
 		if err != nil {
 			return "", errors.Wrap(err, "failed to generate content by text")
 		}
+
 	case line.MessageTypeImage:
-		replyMsg = "画像はまだわかりません"
+		slog.InfoContext(ctx, "image message", slog.String("messageId", event.Content))
+
+		resp, err := lineClient.GetContent(ctx, event.Content)
+		if err != nil {
+			return "", errors.Wrap(err, "failed to get image")
+		}
+		defer resp.Body.Close()
+
+		file := make([]byte, resp.ContentLength)
+		if _, err := resp.Body.Read(file); err != nil {
+			return "", errors.Wrap(err, "failed to read response body")
+		}
+
+		minetype := resp.Header.Get("Content-Type")
+
+		replyMsg, err = gemini.GenerateContentByImage(ctx, minetype, file)
+		if err != nil {
+			return "", errors.Wrap(err, "failed to generate content by image")
+		}
+
 	default:
 		replyMsg = "ごめんなさい、わかりません"
 	}
