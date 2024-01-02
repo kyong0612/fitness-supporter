@@ -41,7 +41,10 @@ func ParseWebhookRequest(ctx context.Context, req *http.Request) ([]MessageEvent
 		req,
 	)
 	if err != nil {
-		slog.ErrorContext(ctx, "failed to parse webhook request", err)
+		slog.ErrorContext(ctx,
+			"failed to parse webhook request",
+			slog.Any("err", err),
+		)
 		// NOTE: healthcheckを通過させるために、エラー時はnilを返す
 		return nil, nil
 	}
