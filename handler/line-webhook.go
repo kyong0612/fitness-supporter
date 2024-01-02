@@ -1,9 +1,13 @@
 package handler
 
 import (
+	"context"
+	"fmt"
 	"log/slog"
 	"net/http"
 
+	"github.com/cockroachdb/errors"
+	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
 )
 
@@ -32,7 +36,15 @@ func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, event := range events {
-		resp, err := line.ReplyMessage(ctx, event.ReplyToken, []string{event.Content})
+		replyMsg, err := generateReply(ctx, event)
+		if err != nil {
+			slog.ErrorContext(ctx, "failed to generate reply message",
+				slog.Any("err", err),
+			)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		resp, err := line.ReplyMessage(ctx, event.ReplyToken, []string{replyMsg})
 		if err != nil {
 			slog.ErrorContext(ctx, "failed to reply message",
 				slog.Any("err", err),
@@ -49,4 +61,32 @@ func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func generateReply(ctx context.Context, event line.MessageEvent) (string, error) {
+	gemini, err := gemini.NewClient(ctx)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create gemini client")
+	}
+
+	var replyMsg string
+
+	switch event.Type {
+	case line.MessageTypeText:
+		replyMsg, err = gemini.GenerateContentByText(ctx, event.Content)
+		if err != nil {
+			return "", errors.Wrap(err, "failed to generate content by text")
+		}
+	case line.MessageTypeImage:
+		replyMsg = "画像はまだわかりません"
+	default:
+		replyMsg = "ごめんなさい、わかりません"
+	}
+
+	slog.InfoContext(ctx,
+		fmt.Sprintf("generated content by %s", event.Type),
+		slog.String("replyMsg", replyMsg),
+	)
+
+	return replyMsg, nil
 }

@@ -59,6 +59,7 @@ jobs:
           deploy_parameters: |-
             line_secret_token=${{ secrets.LINE_CHANNEL_SECRET }}
             line_access_token=${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+            gemini_key=${{ secrets.GEMINI_API_KEY }}
 
       - name: "Report Cloud Deploy release"
         run: |-
