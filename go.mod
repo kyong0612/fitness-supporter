@@ -3,7 +3,7 @@ module github.com/kyong0612/fitness-supporter
 go 1.21.5
 
 require (
-	cloud.google.com/go/storage v1.30.1
+	cloud.google.com/go/storage v1.36.0
 	github.com/caarlos0/env/v10 v10.0.0
 	github.com/cockroachdb/errors v1.11.1
 	github.com/go-chi/chi v1.5.5
