@@ -21,6 +21,7 @@ func NewClient(ctx context.Context) (Client, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create gcs client")
 	}
+
 	return client{c}, nil
 }
 
@@ -29,9 +30,11 @@ func (c client) Upload(ctx context.Context, bucket, object string, data []byte) 
 	if _, err := wc.Write(data); err != nil {
 		return errors.Wrap(err, "failed to write data")
 	}
+
 	if err := wc.Close(); err != nil {
 		return errors.Wrap(err, "failed to close writer")
 	}
+
 	return nil
 }
 

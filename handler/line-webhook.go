@@ -125,6 +125,7 @@ func generateReplyByImage(
 	if err != nil {
 		return "", errors.Wrap(err, "failed to create gcs client")
 	}
+
 	bucket := config.Get().GCSBucketFitnessSupporter
 	fileName := fmt.Sprintf("%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
 
