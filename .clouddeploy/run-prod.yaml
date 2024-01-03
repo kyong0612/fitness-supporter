@@ -20,3 +20,5 @@ spec:
               value: dummy # from-param: ${line_access_token}
             - name: GEMINI_API_KEY
               value: dummy # from-param: ${gemini_key}
+            - name: GCS_BUCKET_FITNESS_SUPPORTER
+              value: fitness-supporter-prd

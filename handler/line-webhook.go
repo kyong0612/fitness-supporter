@@ -3,10 +3,15 @@ package handler
 import (
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
+	"strings"
 
 	"github.com/cockroachdb/errors"
+	"github.com/google/uuid"
+	"github.com/kyong0612/fitness-supporter/infra/config"
+	"github.com/kyong0612/fitness-supporter/infra/gcs"
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
 )
@@ -88,17 +93,36 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 		}
 		defer resp.Body.Close()
 
-		file := make([]byte, resp.ContentLength)
-		if _, err := resp.Body.Read(file); err != nil {
+		file, err := io.ReadAll(resp.Body)
+		if err != nil {
 			return "", errors.Wrap(err, "failed to read response body")
 		}
 
 		minetype := resp.Header.Get("Content-Type")
 
+		// upload image to gcs
+		gcsClient, err := gcs.NewClient(ctx)
+		if err != nil {
+			return "", errors.Wrap(err, "failed to create gcs client")
+		}
+		bucket := config.Get().GCSBucketFitnessSupporter
+		fileName := fmt.Sprintf("%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
+		if err := gcsClient.Upload(ctx, bucket, fileName, file); err != nil {
+			return "", errors.Wrap(err, "failed to upload image to gcs")
+		}
+
+		// generate content by AI
 		replyMsg, err = gemini.GenerateContentByImage(ctx, minetype, file)
 		if err != nil {
 			return "", errors.Wrap(err, "failed to generate content by image")
 		}
+
+		filePath, err := gcsClient.GetContentURL(ctx, bucket, fileName)
+		if err != nil {
+			return "", errors.Wrap(err, "failed to get content url")
+		}
+
+		replyMsg = fmt.Sprintf("画像は以下のURLから取得できます。\n%s\n\n%s", filePath, replyMsg)
 
 	default:
 		replyMsg = "ごめんなさい、わかりません"
