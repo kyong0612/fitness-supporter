@@ -75,7 +75,7 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 	}
 	defer gemini.Close()
 
-	var replyMsg string
+	replyMsg := "ごめんなさい、わかりません" // default reply message
 
 	switch event.Type {
 	case line.MessageTypeText:
@@ -87,45 +87,10 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 	case line.MessageTypeImage:
 		slog.InfoContext(ctx, "image message", slog.String("messageId", event.Content))
 
-		resp, err := lineClient.GetContent(ctx, event.Content)
+		replyMsg, err = generateReplyByImage(ctx, lineClient, gemini, event.Content)
 		if err != nil {
-			return "", errors.Wrap(err, "failed to get image")
+			return "", errors.Wrap(err, "failed to generate reply by image")
 		}
-		defer resp.Body.Close()
-
-		file, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return "", errors.Wrap(err, "failed to read response body")
-		}
-
-		minetype := resp.Header.Get("Content-Type")
-
-		// upload image to gcs
-		gcsClient, err := gcs.NewClient(ctx)
-		if err != nil {
-			return "", errors.Wrap(err, "failed to create gcs client")
-		}
-		bucket := config.Get().GCSBucketFitnessSupporter
-		fileName := fmt.Sprintf("%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
-		if err := gcsClient.Upload(ctx, bucket, fileName, file); err != nil {
-			return "", errors.Wrap(err, "failed to upload image to gcs")
-		}
-
-		// generate content by AI
-		replyMsg, err = gemini.GenerateContentByImage(ctx, minetype, file)
-		if err != nil {
-			return "", errors.Wrap(err, "failed to generate content by image")
-		}
-
-		filePath, err := gcsClient.GetContentURL(ctx, bucket, fileName)
-		if err != nil {
-			return "", errors.Wrap(err, "failed to get content url")
-		}
-
-		replyMsg = fmt.Sprintf("画像は以下のURLから取得できます。\n%s\n\n%s", filePath, replyMsg)
-
-	default:
-		replyMsg = "ごめんなさい、わかりません"
 	}
 
 	slog.InfoContext(ctx,
@@ -134,4 +99,49 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 	)
 
 	return replyMsg, nil
+}
+
+func generateReplyByImage(
+	ctx context.Context,
+	lineClient line.Client,
+	geminiClient gemini.Client,
+	messageID string,
+) (string, error) {
+	resp, err := lineClient.GetContent(ctx, messageID)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to get image")
+	}
+	defer resp.Body.Close()
+
+	file, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to read response body")
+	}
+
+	minetype := resp.Header.Get("Content-Type")
+
+	// upload image to gcs
+	gcsClient, err := gcs.NewClient(ctx)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create gcs client")
+	}
+	bucket := config.Get().GCSBucketFitnessSupporter
+	fileName := fmt.Sprintf("%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
+
+	if err := gcsClient.Upload(ctx, bucket, fileName, file); err != nil {
+		return "", errors.Wrap(err, "failed to upload image to gcs")
+	}
+
+	// generate content by AI
+	msg, err := geminiClient.GenerateContentByImage(ctx, minetype, file)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to generate content by image")
+	}
+
+	filePath, err := gcsClient.GetContentURL(ctx, bucket, fileName)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to get content url")
+	}
+
+	return fmt.Sprintf("画像は以下のURLから取得できます。\n%s\n\n%s", filePath, msg), nil
 }
