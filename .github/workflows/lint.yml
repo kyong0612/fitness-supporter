@@ -24,6 +24,9 @@ jobs:
       - name: golangci-lint
         run: go run github.com/golangci/golangci-lint/cmd/golangci-lint run
 
+      - name: govulncheck
+        run: go run golang.org/x/vuln/cmd/govulncheck ./...
+
   docker:
     name: docker buildable
     runs-on: ubuntu-latest
