@@ -11,6 +11,7 @@ require (
 	github.com/google/generative-ai-go v0.5.0
 	github.com/google/uuid v1.5.0
 	github.com/line/line-bot-sdk-go/v8 v8.2.0
+	golang.org/x/vuln v1.0.1
 	google.golang.org/api v0.154.0
 )
 
@@ -232,5 +233,5 @@ require (
 	mvdan.cc/gofumpt v0.5.0 // indirect
 	mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed // indirect
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
-	mvdan.cc/unparam v0.0.0-20221223090309-7455f1af531d // indirect
+	mvdan.cc/unparam v0.0.0-20230312165513-e84e2d14e3b8 // indirect
 )
