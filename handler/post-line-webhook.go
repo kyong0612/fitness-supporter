@@ -16,7 +16,7 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/line"
 )
 
-func PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
+func (h handler) PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	events, err := line.ParseWebhookRequest(ctx, r)
