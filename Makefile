@@ -6,10 +6,19 @@ init:
 	cp .env.sample .env
 	direnv allow .
 
+.PHONY: generate.buf
+generate.buf:
+	@go run github.com/bufbuild/buf/cmd/buf generate
+
+.PHONY: lint.buf
+lint.buf:
+	@go run github.com/bufbuild/buf/cmd/buf lint
+
 .PHONY: lint.fix
 lint.fix:
 	@go run github.com/golangci/golangci-lint/cmd/golangci-lint run --fix
 	@go run golang.org/x/vuln/cmd/govulncheck ./...
+	@make lint.buf
 
 .PHONY: server.run
 server.run:
@@ -50,4 +59,3 @@ deploy.release:
   		--region=asia-northeast1 \
   		--delivery-pipeline=fitness-support \
 		--deploy-parameters="line_secret_token=$(LINE_CHANNEL_SECRET),line_access_token=$(LINE_CHANNEL_ACCESS_TOKEN),gemini_key=$(GEMINI_API_KEY)"
-
