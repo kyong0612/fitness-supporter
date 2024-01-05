@@ -21,8 +21,8 @@ import (
 const _ = connect.IsAtLeastVersion1_13_0
 
 const (
-	// GreetServiceName is the fully-qualified name of the GreetService service.
-	GreetServiceName = "proto.handler.v1.GreetService"
+	// AnalyzeImageServiceName is the fully-qualified name of the AnalyzeImageService service.
+	AnalyzeImageServiceName = "proto.handler.v1.AnalyzeImageService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -33,81 +33,82 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// GreetServiceAnalyzeImageProcedure is the fully-qualified name of the GreetService's AnalyzeImage
-	// RPC.
-	GreetServiceAnalyzeImageProcedure = "/proto.handler.v1.GreetService/AnalyzeImage"
+	// AnalyzeImageServiceAnalyzeImageProcedure is the fully-qualified name of the AnalyzeImageService's
+	// AnalyzeImage RPC.
+	AnalyzeImageServiceAnalyzeImageProcedure = "/proto.handler.v1.AnalyzeImageService/AnalyzeImage"
 )
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
 var (
-	greetServiceServiceDescriptor            = v1.File_proto_handler_v1_analyse_image_proto.Services().ByName("GreetService")
-	greetServiceAnalyzeImageMethodDescriptor = greetServiceServiceDescriptor.Methods().ByName("AnalyzeImage")
+	analyzeImageServiceServiceDescriptor            = v1.File_proto_handler_v1_analyse_image_proto.Services().ByName("AnalyzeImageService")
+	analyzeImageServiceAnalyzeImageMethodDescriptor = analyzeImageServiceServiceDescriptor.Methods().ByName("AnalyzeImage")
 )
 
-// GreetServiceClient is a client for the proto.handler.v1.GreetService service.
-type GreetServiceClient interface {
+// AnalyzeImageServiceClient is a client for the proto.handler.v1.AnalyzeImageService service.
+type AnalyzeImageServiceClient interface {
 	AnalyzeImage(context.Context, *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error)
 }
 
-// NewGreetServiceClient constructs a client for the proto.handler.v1.GreetService service. By
-// default, it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses,
-// and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the
-// connect.WithGRPC() or connect.WithGRPCWeb() options.
+// NewAnalyzeImageServiceClient constructs a client for the proto.handler.v1.AnalyzeImageService
+// service. By default, it uses the Connect protocol with the binary Protobuf Codec, asks for
+// gzipped responses, and sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply
+// the connect.WithGRPC() or connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewGreetServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) GreetServiceClient {
+func NewAnalyzeImageServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AnalyzeImageServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	return &greetServiceClient{
+	return &analyzeImageServiceClient{
 		analyzeImage: connect.NewClient[v1.AnalyzeImageRequest, v1.AnalyzeImageResponse](
 			httpClient,
-			baseURL+GreetServiceAnalyzeImageProcedure,
-			connect.WithSchema(greetServiceAnalyzeImageMethodDescriptor),
+			baseURL+AnalyzeImageServiceAnalyzeImageProcedure,
+			connect.WithSchema(analyzeImageServiceAnalyzeImageMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 	}
 }
 
-// greetServiceClient implements GreetServiceClient.
-type greetServiceClient struct {
+// analyzeImageServiceClient implements AnalyzeImageServiceClient.
+type analyzeImageServiceClient struct {
 	analyzeImage *connect.Client[v1.AnalyzeImageRequest, v1.AnalyzeImageResponse]
 }
 
-// AnalyzeImage calls proto.handler.v1.GreetService.AnalyzeImage.
-func (c *greetServiceClient) AnalyzeImage(ctx context.Context, req *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error) {
+// AnalyzeImage calls proto.handler.v1.AnalyzeImageService.AnalyzeImage.
+func (c *analyzeImageServiceClient) AnalyzeImage(ctx context.Context, req *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error) {
 	return c.analyzeImage.CallUnary(ctx, req)
 }
 
-// GreetServiceHandler is an implementation of the proto.handler.v1.GreetService service.
-type GreetServiceHandler interface {
+// AnalyzeImageServiceHandler is an implementation of the proto.handler.v1.AnalyzeImageService
+// service.
+type AnalyzeImageServiceHandler interface {
 	AnalyzeImage(context.Context, *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error)
 }
 
-// NewGreetServiceHandler builds an HTTP handler from the service implementation. It returns the
-// path on which to mount the handler and the handler itself.
+// NewAnalyzeImageServiceHandler builds an HTTP handler from the service implementation. It returns
+// the path on which to mount the handler and the handler itself.
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewGreetServiceHandler(svc GreetServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	greetServiceAnalyzeImageHandler := connect.NewUnaryHandler(
-		GreetServiceAnalyzeImageProcedure,
+func NewAnalyzeImageServiceHandler(svc AnalyzeImageServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	analyzeImageServiceAnalyzeImageHandler := connect.NewUnaryHandler(
+		AnalyzeImageServiceAnalyzeImageProcedure,
 		svc.AnalyzeImage,
-		connect.WithSchema(greetServiceAnalyzeImageMethodDescriptor),
+		connect.WithSchema(analyzeImageServiceAnalyzeImageMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
-	return "/proto.handler.v1.GreetService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return "/proto.handler.v1.AnalyzeImageService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case GreetServiceAnalyzeImageProcedure:
-			greetServiceAnalyzeImageHandler.ServeHTTP(w, r)
+		case AnalyzeImageServiceAnalyzeImageProcedure:
+			analyzeImageServiceAnalyzeImageHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
 	})
 }
 
-// UnimplementedGreetServiceHandler returns CodeUnimplemented from all methods.
-type UnimplementedGreetServiceHandler struct{}
+// UnimplementedAnalyzeImageServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedAnalyzeImageServiceHandler struct{}
 
-func (UnimplementedGreetServiceHandler) AnalyzeImage(context.Context, *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("proto.handler.v1.GreetService.AnalyzeImage is not implemented"))
+func (UnimplementedAnalyzeImageServiceHandler) AnalyzeImage(context.Context, *connect.Request[v1.AnalyzeImageRequest]) (*connect.Response[v1.AnalyzeImageResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("proto.handler.v1.AnalyzeImageService.AnalyzeImage is not implemented"))
 }

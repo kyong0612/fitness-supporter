@@ -13,6 +13,6 @@ message AnalyzeImageResponse {
   bool ok = 1;
 }
 
-service GreetService {
+service AnalyzeImageService {
   rpc AnalyzeImage(AnalyzeImageRequest) returns (AnalyzeImageResponse) {}
 }
