@@ -13,6 +13,7 @@ generate.buf:
 .PHONY: lint.buf
 lint.buf:
 	@go run github.com/bufbuild/buf/cmd/buf lint
+	@go run github.com/bufbuild/buf/cmd/buf format -w
 
 .PHONY: lint.fix
 lint.fix:
