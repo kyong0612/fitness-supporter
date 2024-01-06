@@ -7,6 +7,8 @@
   - cloud deploy
   - google cloud storage
   - bigquery
+  - pubsub
+  - connect-go
 
 ## int for developer
 
