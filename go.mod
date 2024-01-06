@@ -3,6 +3,7 @@ module github.com/kyong0612/fitness-supporter
 go 1.21.5
 
 require (
+	cloud.google.com/go/pubsub v1.33.0
 	cloud.google.com/go/storage v1.36.0
 	connectrpc.com/connect v1.14.0
 	github.com/bufbuild/buf v1.28.1
@@ -14,6 +15,7 @@ require (
 	github.com/google/generative-ai-go v0.5.0
 	github.com/google/uuid v1.5.0
 	github.com/line/line-bot-sdk-go/v8 v8.2.0
+	golang.org/x/net v0.19.0
 	golang.org/x/vuln v1.0.1
 	google.golang.org/api v0.154.0
 	google.golang.org/protobuf v1.32.0
@@ -260,7 +262,6 @@ require (
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/exp/typeparams v0.0.0-20230307190834-24139beb5833 // indirect
 	golang.org/x/mod v0.14.0 // indirect
-	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/oauth2 v0.15.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
