@@ -25,11 +25,13 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 		slog.ErrorContext(ctx, "failed to get image from url",
 			slog.Any("err", err),
 		)
+
 		return nil, errors.Wrap(err, "failed to get image from url")
 	}
 	defer resp.Body.Close()
 
 	minetype := resp.Header.Get("Content-Type")
+
 	file, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read response body")
@@ -52,7 +54,8 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 
 	// parse json
 	regx := regexp.MustCompile("{.*}")
-	analyzed = regx.FindString(analyzed)
+	josnData := regx.FindString(analyzed)
+	_ = josnData
 
 	// TODO: persist analyzed data to bigquery
 	// storage write API: https://cloud.google.com/bigquery/docs/write-api-batch?hl=ja
@@ -62,5 +65,6 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 		Ok: true,
 	})
 	res.Header().Set("Greet-Version", "v1")
+
 	return res, nil
 }

@@ -19,6 +19,7 @@ func NewClient(ctx context.Context) (Client, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create pubsub client")
 	}
+
 	return &client{c}, nil
 }
 
