@@ -14,6 +14,9 @@ import (
 	handlerv1 "github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1"
 )
 
+// TODO: too long
+//
+//nolint:funlen
 func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv1.AnalyzeImageRequest]) (*connect.Response[handlerv1.AnalyzeImageResponse], error) {
 	slog.Info("Request Body",
 		slog.Any("image_url", req.Msg.GetImageUrl()),
@@ -22,6 +25,7 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 
 	// get image from url
 	client := http.DefaultClient
+
 	reqImage, err := http.NewRequestWithContext(ctx, http.MethodGet, req.Msg.GetImageUrl(), nil)
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to get image from url",
@@ -30,6 +34,7 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 
 		return nil, errors.Wrap(err, "failed to get image from url")
 	}
+
 	resp, err := client.Do(reqImage)
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to get image from url",
