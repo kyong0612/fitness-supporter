@@ -59,8 +59,4 @@ deploy.release:
   		--project=kyong0612-lab \
   		--region=asia-northeast1 \
   		--delivery-pipeline=fitness-support \
-		--deploy-parameters="\
-			line_secret_token=$(LINE_CHANNEL_SECRET),\
-			line_access_token=$(LINE_CHANNEL_ACCESS_TOKEN),\
-			gemini_key=$(GEMINI_API_KEY)\
-			project_id={GCP_PROJECT_ID}"
+		--deploy-parameters="line_secret_token=$(LINE_CHANNEL_SECRET),line_access_token=$(LINE_CHANNEL_ACCESS_TOKEN),gemini_key=$(GEMINI_API_KEY),project_id={GCP_PROJECT_ID}"
