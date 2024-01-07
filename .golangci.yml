@@ -119,6 +119,7 @@ linters:
     - ireturn
     - lll
     - gosmopolitan
+    - godox
   # Enable presets.
   # https://golangci-lint.run/usage/linters
   # Default: []

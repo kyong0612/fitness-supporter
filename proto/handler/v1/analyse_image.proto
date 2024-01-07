@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.handler.v1;
+
+option go_package = "github.com/kyong0612/fitness-supporter/generated/proto/handler/v1;analyzeimagev1";
+
+message AnalyzeImageRequest {
+  string image_url = 1;
+  string user_id = 2;
+}
+
+message AnalyzeImageResponse {
+  bool ok = 1;
+}
+
+service AnalyzeImageService {
+  rpc AnalyzeImage(AnalyzeImageRequest) returns (AnalyzeImageResponse) {}
+}

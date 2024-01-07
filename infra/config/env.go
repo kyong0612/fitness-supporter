@@ -12,6 +12,8 @@ type config struct {
 	LINEChannelSecret      string `env:"LINE_CHANNEL_SECRET,required"`
 	LINEChannelAccessToken string `env:"LINE_CHANNEL_ACCESS_TOKEN,required"`
 
+	GCPProjectID string `env:"GCP_PROJECT_ID,required"`
+
 	GeminiAPIKey string `env:"GEMINI_API_KEY,required"`
 
 	GCSBucketFitnessSupporter string `env:"GCS_BUCKET_FITNESS_SUPPORTER,required"`

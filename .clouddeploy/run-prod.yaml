@@ -22,3 +22,5 @@ spec:
               value: dummy # from-param: ${gemini_key}
             - name: GCS_BUCKET_FITNESS_SUPPORTER
               value: fitness-supporter-prd
+            - name: GCP_PROJECT_ID
+              value: dummy # from-param: ${project_id}
