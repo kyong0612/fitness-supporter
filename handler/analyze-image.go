@@ -15,12 +15,12 @@ import (
 
 func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv1.AnalyzeImageRequest]) (*connect.Response[handlerv1.AnalyzeImageResponse], error) {
 	slog.Info("Request body: ",
-		slog.Any("image_url", req.Msg.ImageUrl),
-		slog.Any("user_id", req.Msg.UserId),
+		slog.Any("image_url", req.Msg.GetImageUrl()),
+		slog.Any("user_id", req.Msg.GetUserId()),
 	)
 
 	// get image from url
-	resp, err := http.Get(req.Msg.ImageUrl)
+	resp, err := http.Get(req.Msg.GetImageUrl())
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to get image from url",
 			slog.Any("err", err),
