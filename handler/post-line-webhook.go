@@ -14,6 +14,7 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/gcs"
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
+	"github.com/kyong0612/fitness-supporter/infra/pubsub"
 )
 
 func (h handler) PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
