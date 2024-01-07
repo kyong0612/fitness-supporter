@@ -144,5 +144,24 @@ func generateReplyByImage(
 		return "", errors.Wrap(err, "failed to get content url")
 	}
 
+	// publish analyze image topic
+	pubsubClient, err := pubsub.NewClient(ctx)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create pubsub client")
+	}
+
+	topicMsg, err := pubsub.NewAnalyzeImageTopic("TODO:", filePath)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create topic message")
+	}
+
+	if err := pubsubClient.PublishTopic(
+		ctx,
+		config.Get().PubSubTopicAnalyzeImage,
+		topicMsg,
+	); err != nil {
+		return "", errors.Wrap(err, "failed to publish topic")
+	}
+
 	return fmt.Sprintf("画像は以下のURLから取得できます。\n%s\n\n%s", filePath, msg), nil
 }

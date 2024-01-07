@@ -25,4 +25,4 @@ spec:
             - name: PROJECT_ID
               value: dummy # from-param: ${gcp_project_id}
             - name: PUBSUB_TOPIC_ANALYZE_IMAGE
-              value: fitness-supporter-analyze-image-event
+              value: fitness-supporter-prd-analyze-image-event

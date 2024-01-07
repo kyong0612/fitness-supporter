@@ -8,7 +8,9 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/config"
 )
 
-type Client interface{}
+type Client interface {
+	PublishTopic(ctx context.Context, topic string, message Message) error
+}
 
 type client struct {
 	client *pubsub.Client
@@ -21,20 +23,4 @@ func NewClient(ctx context.Context) (Client, error) {
 	}
 
 	return &client{c}, nil
-}
-
-func (c client) PublishTopic(ctx context.Context, topic string, data []byte) error {
-	t := c.client.Topic(topic)
-	defer t.Stop()
-
-	result := t.Publish(ctx, &pubsub.Message{
-		Data: data,
-	})
-
-	_, err := result.Get(ctx)
-	if err != nil {
-		return errors.Wrap(err, "failed to publish topic")
-	}
-
-	return nil
 }
