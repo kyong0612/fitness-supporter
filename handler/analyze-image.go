@@ -9,8 +9,8 @@ import (
 
 	"connectrpc.com/connect"
 	"github.com/cockroachdb/errors"
-	handlerv1 "github.com/kyong0612/fitness-supporter/generated/proto/handler/v1"
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
+	handlerv1 "github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1"
 )
 
 func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv1.AnalyzeImageRequest]) (*connect.Response[handlerv1.AnalyzeImageResponse], error) {
