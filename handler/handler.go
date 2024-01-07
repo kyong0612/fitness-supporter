@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/kyong0612/fitness-supporter/generated/proto/handler/v1/analyzeimagev1connect"
+	"github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1/analyzeimagev1connect"
 )
 
 type handler struct{}

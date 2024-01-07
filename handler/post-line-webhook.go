@@ -14,6 +14,7 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/gcs"
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
+	"github.com/kyong0612/fitness-supporter/infra/pubsub"
 )
 
 func (h handler) PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
@@ -101,6 +102,9 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 	return replyMsg, nil
 }
 
+// TODO: too long
+//
+//nolint:funlen
 func generateReplyByImage(
 	ctx context.Context,
 	lineClient line.Client,
@@ -142,6 +146,25 @@ func generateReplyByImage(
 	filePath, err := gcsClient.GetContentURL(ctx, bucket, fileName)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to get content url")
+	}
+
+	// publish analyze image topic
+	pubsubClient, err := pubsub.NewClient(ctx)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create pubsub client")
+	}
+
+	topicMsg, err := pubsub.NewAnalyzeImageTopic("TODO:", filePath)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to create topic message")
+	}
+
+	if err := pubsubClient.PublishTopic(
+		ctx,
+		config.Get().PubSubTopicAnalyzeImage,
+		topicMsg,
+	); err != nil {
+		return "", errors.Wrap(err, "failed to publish topic")
 	}
 
 	return fmt.Sprintf("画像は以下のURLから取得できます。\n%s\n\n%s", filePath, msg), nil

@@ -1,8 +1,8 @@
 version: v1
 plugins:
   - plugin: go
-    out: generated
+    out: proto/generated
     opt: paths=source_relative
   - plugin: connect-go
-    out: generated
+    out: proto/generated
     opt: paths=source_relative
