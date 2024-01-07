@@ -20,7 +20,7 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 	)
 
 	// get image from url
-	resp, err := http.Get(req.Msg.GetImageUrl())
+	resp, err := http.NewRequestWithContext(ctx, http.MethodGet, req.Msg.GetImageUrl(), nil)
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to get image from url",
 			slog.Any("err", err),
