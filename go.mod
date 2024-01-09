@@ -1,6 +1,6 @@
 module github.com/kyong0612/fitness-supporter
 
-go 1.21.5
+go 1.21.6
 
 require (
 	cloud.google.com/go/pubsub v1.33.0
