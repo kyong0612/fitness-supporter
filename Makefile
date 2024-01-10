@@ -23,7 +23,7 @@ lint.fix:
 
 .PHONY: server.run
 server.run:
-	@go build -mod=readonly -v -o bin/server ./cmd/server && ./bin/server
+	@go run github.com/cosmtrek/air --build.cmd "go build -mod=readonly -v -o bin/server ./cmd/server" --build.bin "./bin/server"
 
 .PHONY: server.build
 server.build:
