@@ -21,7 +21,9 @@ X-Line-Signature: SPF+aswY1QKSO41ERcOs3IDju6ZkLHYDhKPbe6RUsZw=
 - payload
 
 ```bash
-{
+curl --location 'http://localhost:8080/line/webhook' \
+--header 'Content-Type: application/json' \
+--data '{
   "destination": "Ued4095ce4cf48cdb76b561d079297db7",
   "events": [
     {
@@ -45,5 +47,5 @@ X-Line-Signature: SPF+aswY1QKSO41ERcOs3IDju6ZkLHYDhKPbe6RUsZw=
       "mode": "active"
     }
   ]
-}
+}'
 ```
