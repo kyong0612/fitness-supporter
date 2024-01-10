@@ -33,3 +33,7 @@ func New() error {
 func Get() config {
 	return cfg
 }
+
+func IsLocal() bool {
+	return cfg.ENV == "local"
+}

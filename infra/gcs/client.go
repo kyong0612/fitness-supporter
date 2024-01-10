@@ -2,9 +2,11 @@ package gcs
 
 import (
 	"context"
+	"fmt"
 
 	"cloud.google.com/go/storage"
 	"github.com/cockroachdb/errors"
+	"github.com/kyong0612/fitness-supporter/infra/config"
 )
 
 type Client interface {
@@ -26,7 +28,12 @@ func NewClient(ctx context.Context) (Client, error) {
 }
 
 func (c client) Upload(ctx context.Context, bucket, object string, data []byte) error {
+	if config.IsLocal() {
+		bucket = fmt.Sprintf("%s-test", bucket)
+	}
+
 	wc := c.Bucket(bucket).Object(object).NewWriter(ctx)
+
 	if _, err := wc.Write(data); err != nil {
 		return errors.Wrap(err, "failed to write data")
 	}

@@ -17,6 +17,11 @@ type client struct {
 }
 
 func NewClient(ctx context.Context) (Client, error) {
+	// NOTE: local環境の場合はemulatorを使用する
+	if config.IsLocal() {
+		return NewMockClient(ctx)
+	}
+
 	c, err := pubsub.NewClient(ctx, config.Get().GCPProjectID)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create pubsub client")
