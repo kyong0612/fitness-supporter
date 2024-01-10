@@ -3,6 +3,7 @@ package pubsub
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"cloud.google.com/go/pubsub"
@@ -16,6 +17,8 @@ import (
 )
 
 func NewMockClient(ctx context.Context) (Client, error) {
+	slog.InfoContext(ctx, "📝 start mock pubsub client")
+
 	pubsubContainer, err := gcloud.RunPubsubContainer(
 		ctx,
 		testcontainers.WithImage("gcr.io/google.com/cloudsdktool/cloud-sdk:367.0.0-emulators"),
