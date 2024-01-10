@@ -31,7 +31,9 @@ func (c client) Upload(ctx context.Context, bucket, object string, data []byte) 
 	if config.IsLocal() {
 		bucket = fmt.Sprintf("%s-test", bucket)
 	}
+
 	wc := c.Bucket(bucket).Object(object).NewWriter(ctx)
+
 	if _, err := wc.Write(data); err != nil {
 		return errors.Wrap(err, "failed to write data")
 	}

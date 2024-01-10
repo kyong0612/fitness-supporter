@@ -26,6 +26,7 @@ func NewClient() (Client, error) {
 	if config.IsLocal() {
 		return NewMockClient()
 	}
+
 	bot, err := messaging_api.NewMessagingApiAPI(
 		config.Get().LINEChannelAccessToken,
 	)

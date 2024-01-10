@@ -20,6 +20,7 @@ func (c mockClient) ReplyMessage(ctx context.Context, replyToken string, message
 	if err != nil {
 		return nil, errors.New("failed to create mock response in ReplyMessage")
 	}
+
 	return resp, nil
 }
 

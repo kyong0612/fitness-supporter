@@ -33,6 +33,7 @@ func NewMockClient(ctx context.Context) (Client, error) {
 	}
 
 	options := []option.ClientOption{option.WithGRPCConn(conn)}
+
 	c, err := pubsub.NewClient(ctx, projectID, options...)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create pubsub client")
