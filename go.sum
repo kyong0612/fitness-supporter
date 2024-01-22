@@ -569,6 +569,8 @@ github.com/leonklingele/grouper v1.1.1 h1:suWXRU57D4/Enn6pXR0QVqqWWrnJ9Osrz+5rjt
 github.com/leonklingele/grouper v1.1.1/go.mod h1:uk3I3uDfi9B6PeUjsCKi6ndcf63Uy7snXgR4yDYQVDY=
 github.com/line/line-bot-sdk-go/v8 v8.2.0 h1:IFqwd3pKbA+o3pwV3nzamtWHt7n+ijSH3t/D8Q/vVQ0=
 github.com/line/line-bot-sdk-go/v8 v8.2.0/go.mod h1:n9Ly8OHM6xCeQktLzRpQHe/yBda95kFgmQUefUQeFCs=
+github.com/line/line-bot-sdk-go/v8 v8.2.1 h1:7f4Uxey2+aSmFmMuSgsjbqxe+CtPN999xgvFF2PyNWY=
+github.com/line/line-bot-sdk-go/v8 v8.2.1/go.mod h1:n9Ly8OHM6xCeQktLzRpQHe/yBda95kFgmQUefUQeFCs=
 github.com/lufeee/execinquery v1.2.1 h1:hf0Ems4SHcUGBxpGN7Jz78z1ppVkP/837ZlETPCEtOM=
 github.com/lufeee/execinquery v1.2.1/go.mod h1:EC7DrEKView09ocscGHC+apXMIaorh4xqSxS/dy8SbM=
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 h1:6E+4a0GO5zZEnZ81pIr0yLvtUWk2if982qA3F3QD6H4=
