@@ -16,7 +16,7 @@ require (
 	github.com/google/generative-ai-go v0.6.0
 	github.com/google/uuid v1.6.0
 	github.com/jarcoal/httpmock v1.3.1
-	github.com/line/line-bot-sdk-go/v8 v8.2.1
+	github.com/line/line-bot-sdk-go/v8 v8.4.0
 	github.com/testcontainers/testcontainers-go v0.27.0
 	github.com/testcontainers/testcontainers-go/modules/gcloud v0.27.0
 	golang.org/x/net v0.20.0
