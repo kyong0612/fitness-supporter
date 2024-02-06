@@ -13,7 +13,7 @@ require (
 	github.com/fullstorydev/grpcurl v1.8.9
 	github.com/go-chi/chi v1.5.5
 	github.com/golangci/golangci-lint v1.55.1
-	github.com/google/generative-ai-go v0.5.0
+	github.com/google/generative-ai-go v0.6.0
 	github.com/google/uuid v1.6.0
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/line/line-bot-sdk-go/v8 v8.2.1
