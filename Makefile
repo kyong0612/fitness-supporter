@@ -1,11 +1,6 @@
 SHELL=/bin/bash
 include .env
 
-.PHONY: init
-init:
-	cp .env.sample .env
-	direnv allow .
-
 .PHONY: generate.buf
 generate.buf:
 	@go run github.com/bufbuild/buf/cmd/buf generate
