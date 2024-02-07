@@ -21,7 +21,8 @@ brew install direnv
 2. init app
 
 ```bash
-make init
+cp .env.sample .env
+direnv allow .
 ```
 
 3. run server
