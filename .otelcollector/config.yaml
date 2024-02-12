@@ -38,6 +38,11 @@ processors:
 exporters:
   googlemanagedprometheus: # Note: this is intentionally left blank
   googlecloud:
+  # otlphttp/openobserve:
+  #   endpoint: https://api.openobserve.ai/api/kiyong_organization_2077_A0vz8lYUhIFWpjS/
+  #   headers:
+  #     Authorization: TODO:
+  #     stream-name: default
 
 extensions:
   health_check:
@@ -49,4 +54,8 @@ service:
       receivers: [otlp]
       processors: [batch, memory_limiter, resourcedetection, resource]
       exporters: [googlemanagedprometheus, googlecloud]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [googlecloud]
 # [END cloudrun_mc_custom_metrics_otel_config]
