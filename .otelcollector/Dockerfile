@@ -1,4 +1,4 @@
-FROM ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.94.0-amd64
-COPY config.yaml /etc/otel/config.yaml
+FROM otel/opentelemetry-collector-contrib:0.94.0
+COPY config.yaml /etc/otelcol-contrib/config.yaml
 EXPOSE 4317
-CMD ["--config", "/etc/otel/config.yaml"]
+CMD ["--config", "/etc/otelcol-contrib/config.yaml"]
