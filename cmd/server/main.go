@@ -30,6 +30,7 @@ func main() {
 		slog.Error("failed to init tracer", slog.Any("err", err))
 		os.Exit(1)
 	}
+
 	defer func() {
 		if err := tp.Shutdown(context.Background()); err != nil {
 			slog.Error("failed to tracer shutdown", slog.Any("err", err))
@@ -55,6 +56,5 @@ func main() {
 
 	if err := srv.ListenAndServe(); err != nil {
 		slog.Error(err.Error())
-		os.Exit(1) // Exit with error.
 	}
 }

@@ -3,8 +3,8 @@ package trace
 import (
 	"context"
 	"os"
-	"time"
 
+	"github.com/cockroachdb/errors"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
@@ -14,11 +14,6 @@ import (
 )
 
 const (
-	spanInterval = 50 * time.Millisecond
-	genInterval  = 10 * time.Second
-)
-
-var (
 	OTLPEndpoint = "localhost:4317"
 	ServiceName  = "fitness-supporter"
 )
@@ -36,12 +31,14 @@ func InitTracer(env string) (*sdktrace.TracerProvider, error) {
 		otlptracegrpc.WithInsecure(),
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to new exporter")
 	}
+
 	sname := os.Getenv("SERVICE_NAME")
 	if sname == "" {
 		sname = ServiceName
 	}
+
 	res, err := resource.New(
 		context.Background(),
 		resource.WithAttributes(
@@ -54,8 +51,9 @@ func InitTracer(env string) (*sdktrace.TracerProvider, error) {
 		),
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to new trace resource")
 	}
+
 	tp := sdktrace.NewTracerProvider(
 		sdktrace.WithSampler(sdktrace.AlwaysSample()),
 		sdktrace.WithBatcher(exporter),
@@ -63,5 +61,6 @@ func InitTracer(env string) (*sdktrace.TracerProvider, error) {
 	)
 	otel.SetTracerProvider(tp)
 	otel.SetTextMapPropagator(propagation.TraceContext{})
+
 	return tp, nil
 }
