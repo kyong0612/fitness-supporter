@@ -11,6 +11,9 @@ spec:
       containers:
         - image: asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
           name: app
+          ports:
+            - name: http1
+              containerPort: 8080
           env:
             - name: ENV
               value: production
