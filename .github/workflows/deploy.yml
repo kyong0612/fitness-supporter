@@ -45,6 +45,11 @@ jobs:
           docker build . -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/prd:latest"
           docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/prd:latest"
 
+      - name: "Build and push sidecar"
+        run: |-
+          docker build .otelcollector/ -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/sidecar/otel:latest"
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/fitness-supporter/sidecar/otel:latest"
+
       - name: "Create release name"
         run: |-
           echo "RELEASE_NAME=${{ env.APP }}-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> ${GITHUB_ENV}
