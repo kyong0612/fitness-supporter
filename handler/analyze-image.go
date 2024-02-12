@@ -12,12 +12,16 @@ import (
 	"github.com/cockroachdb/errors"
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	handlerv1 "github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1"
+	"go.opentelemetry.io/otel"
 )
 
 // TODO: too long
 //
 //nolint:funlen
 func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv1.AnalyzeImageRequest]) (*connect.Response[handlerv1.AnalyzeImageResponse], error) {
+	ctx, span := otel.Tracer("").Start(ctx, "AnalyzeImage")
+	defer span.End()
+
 	slog.Info("Request Body",
 		slog.Any("image_url", req.Msg.GetImageUrl()),
 		slog.Any("user_id", req.Msg.GetUserId()),

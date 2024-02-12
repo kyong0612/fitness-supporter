@@ -7,6 +7,7 @@ import (
 	"cloud.google.com/go/storage"
 	"github.com/cockroachdb/errors"
 	"github.com/kyong0612/fitness-supporter/infra/config"
+	"go.opentelemetry.io/otel"
 )
 
 type Client interface {
@@ -28,6 +29,9 @@ func NewClient(ctx context.Context) (Client, error) {
 }
 
 func (c client) Upload(ctx context.Context, bucket, object string, data []byte) error {
+	ctx, span := otel.Tracer("").Start(ctx, "gcs.Upload")
+	defer span.End()
+
 	if config.IsLocal() {
 		bucket = fmt.Sprintf("%s-test", bucket)
 	}

@@ -26,3 +26,5 @@ spec:
               value: dummy # from-param: ${gcp_project_id}
             - name: PUBSUB_TOPIC_ANALYZE_IMAGE
               value: fitness-supporter-prd-analyze-image-event
+        - image: asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/sidecar/otel:latest
+          name: sidecar-otel

@@ -10,6 +10,7 @@ import (
 	"github.com/cockroachdb/errors"
 	"github.com/kyong0612/fitness-supporter/infra/config"
 	"github.com/line/line-bot-sdk-go/v8/linebot/messaging_api"
+	"go.opentelemetry.io/otel"
 )
 
 type Client interface {
@@ -48,6 +49,9 @@ func NewClient() (Client, error) {
 }
 
 func (c client) ReplyMessage(ctx context.Context, replyToken string, messages []string) (*http.Response, error) {
+	ctx, span := otel.Tracer("").Start(ctx, "line.ReplyMessage")
+	defer span.End()
+
 	textMessages := make([]messaging_api.MessageInterface, 0, len(messages))
 	for _, message := range messages {
 		textMessages = append(textMessages, messaging_api.TextMessage{

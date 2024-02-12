@@ -7,6 +7,7 @@ import (
 	"github.com/cockroachdb/errors"
 	"github.com/google/generative-ai-go/genai"
 	"github.com/kyong0612/fitness-supporter/infra/config"
+	"go.opentelemetry.io/otel"
 	"google.golang.org/api/option"
 )
 
@@ -34,6 +35,9 @@ func NewClient(ctx context.Context) (Client, error) {
 }
 
 func (c client) GenerateContentByText(ctx context.Context, input string) (string, error) {
+	ctx, span := otel.Tracer("").Start(ctx, "gemini.GenerateContentByText")
+	defer span.End()
+
 	modal := c.GenerativeModel("gemini-pro")
 
 	resp, err := modal.GenerateContent(ctx, genai.Text(PromptTextReplyInput(input)))

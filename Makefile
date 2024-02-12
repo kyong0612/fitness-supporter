@@ -43,9 +43,15 @@ deploy.apply:
 
 .PHONY: deploy.build
 deploy.build:
+	@echo "build fitness-supporter"
 	@-docker image rm asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd
 	@docker buildx build . --platform linux/amd64 --no-cache --tag asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
 	@docker push asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/prd:latest
+	@echo "build sidecar"
+	@-docker image rm asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/sidecar/otel:latest
+	@docker buildx build .otelcollector/ --platform linux/amd64 --no-cache --tag asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/sidecar/otel:latest
+	@docker push asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/sidecar/otel:latest
+
 
 .PHONY: deploy.release
 deploy.release:
