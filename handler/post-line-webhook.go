@@ -15,10 +15,12 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
 	"github.com/kyong0612/fitness-supporter/infra/pubsub"
+	"go.opentelemetry.io/otel"
 )
 
 func (h handler) PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
+	ctx, span := otel.Tracer("").Start(r.Context(), "PostLINEWebhook")
+	defer span.End()
 
 	events, err := line.ParseWebhookRequest(ctx, r)
 	if err != nil {
@@ -70,6 +72,9 @@ func (h handler) PostLINEWebhook(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateReply(ctx context.Context, lineClient line.Client, event line.MessageEvent) (string, error) {
+	ctx, span := otel.Tracer("").Start(ctx, "generateReply")
+	defer span.End()
+
 	gemini, err := gemini.NewClient(ctx)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to create gemini client")
