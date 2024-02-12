@@ -21,7 +21,7 @@ require (
 	github.com/testcontainers/testcontainers-go/modules/gcloud v0.27.0
 	golang.org/x/net v0.21.0
 	golang.org/x/vuln v1.0.2
-	google.golang.org/api v0.162.0
+	google.golang.org/api v0.163.0
 	google.golang.org/grpc v1.61.0
 	google.golang.org/protobuf v1.32.0
 )
