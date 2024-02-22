@@ -37,5 +37,9 @@ func New() http.Handler {
 		r.Post("/line/webhook", h.PostLINEWebhook)
 	})
 
+	r.Group(func(r chi.Router) {
+		r.Post("/sync/healthcare/apple", h.SyncHealthcareApple)
+	})
+
 	return r
 }
