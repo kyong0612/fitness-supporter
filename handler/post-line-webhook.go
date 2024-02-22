@@ -136,7 +136,7 @@ func generateReplyByImage(
 	}
 
 	bucket := config.Get().GCSBucketFitnessSupporter
-	fileName := fmt.Sprintf("%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
+	fileName := fmt.Sprintf("images/%s.%s", uuid.New(), strings.Split(minetype, "/")[1])
 
 	if err := gcsClient.Upload(ctx, bucket, fileName, file); err != nil {
 		return "", errors.Wrap(err, "failed to upload image to gcs")
