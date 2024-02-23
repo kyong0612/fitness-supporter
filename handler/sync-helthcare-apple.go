@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httputil"
+	"strings"
 	"time"
 
 	"github.com/kyong0612/fitness-supporter/infra/config"
@@ -37,6 +38,12 @@ func (h handler) SyncHealthcareApple(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
+
+	// format to new-line delimited JSON
+	json := strings.ReplaceAll(string(body), "\n", "")
+	json = strings.ReplaceAll(json, "\t", "")
+	json = strings.ReplaceAll(json, " ", "")
+	body = []byte(json)
 
 	// upload sync data to gcs
 	gcsClient, err := gcs.NewClient(ctx)
