@@ -9,7 +9,7 @@ import (
 )
 
 func (h handler) RMUAppleHealthcare(ctx context.Context, req *connect.Request[handlerv1.RMUAppleHealthcareRequest]) (*connect.Response[handlerv1.RMUAppleHealthcareResponse], error) {
-	ctx, span := otel.Tracer("").Start(ctx, "UpdateReadModelHealthcareApple")
+	_, span := otel.Tracer("").Start(ctx, "UpdateReadModelHealthcareApple")
 	defer span.End()
 
 	// persist to bq

@@ -111,7 +111,7 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 
 // TODO: too long
 //
-//nolint:funlen
+//nolint:funlen,cyclop
 func generateReplyByImage(
 	ctx context.Context,
 	lineClient line.Client,

@@ -6,8 +6,6 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
-	"net/http/httputil"
-	"strings"
 	"time"
 
 	"github.com/kyong0612/fitness-supporter/infra/config"
@@ -17,21 +15,18 @@ import (
 	"go.opentelemetry.io/otel"
 )
 
+// TODO: too long
+//
+//nolint:funlen
 func (h handler) SyncHealthcareApple(w http.ResponseWriter, r *http.Request) {
 	ctx, span := otel.Tracer("").Start(r.Context(), "SyncHealthcareApple")
 	defer span.End()
 
-	dump, err := httputil.DumpRequest(r, false)
-	if err != nil {
-		span.RecordError(err)
-		slog.ErrorContext(ctx, "failed to dump request", slog.Any("err", err))
+	var (
+		body []byte
+		err  error
+	)
 
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-
-	slog.InfoContext(ctx, "request dump", slog.String("dump", string(dump)))
-
-	var body []byte
 	if r.Body != nil {
 		body, err = io.ReadAll(r.Body)
 		if err != nil {
@@ -41,12 +36,6 @@ func (h handler) SyncHealthcareApple(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
-
-	// format to new-line delimited JSON
-	jsonBody := strings.ReplaceAll(string(body), "\n", "")
-	jsonBody = strings.ReplaceAll(jsonBody, "\t", "")
-	jsonBody = strings.ReplaceAll(jsonBody, " ", "")
-	body = []byte(jsonBody)
 
 	// upload sync data to gcs
 	gcsClient, err := gcs.NewClient(ctx)
