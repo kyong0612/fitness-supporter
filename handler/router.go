@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -27,24 +26,21 @@ func New() http.Handler {
 
 	r.Use(otelhttp.NewMiddleware("handler"))
 
-	// pubsub endpoints
-	analyzeImagePath, analyzeImageHandler := handlerv1connect.NewAnalyzeImageServiceHandler(h)
-	RMUAppleHealthcarePath, RMUAppleHealthcareHandler := handlerv1connect.NewRMUAppleHealthcareServiceHandler(h)
-
-	fmt.Println("analyzeImagePath", analyzeImagePath)
-	fmt.Println("RMUAppleHealthcarePath", RMUAppleHealthcarePath)
-
-	r.Group(func(r chi.Router) {
-		r.Post(analyzeImagePath+"AnalyzeImage", analyzeImageHandler.ServeHTTP)
-		r.Post(RMUAppleHealthcarePath+"RMUAppleHealthcare", RMUAppleHealthcareHandler.ServeHTTP)
-	})
-
 	r.Group(func(r chi.Router) {
 		r.Post("/line/webhook", h.PostLINEWebhook)
 	})
 
 	r.Group(func(r chi.Router) {
 		r.Post("/sync/healthcare/apple", h.SyncHealthcareApple)
+	})
+
+	// pubsub endpoints
+	analyzeImagePath, analyzeImageHandler := handlerv1connect.NewAnalyzeImageServiceHandler(h)
+	RMUAppleHealthcarePath, RMUAppleHealthcareHandler := handlerv1connect.NewRMUAppleHealthcareServiceHandler(h)
+
+	r.Group(func(r chi.Router) {
+		r.Post(analyzeImagePath+"AnalyzeImage", analyzeImageHandler.ServeHTTP)
+		r.Post(RMUAppleHealthcarePath+"RMUAppleHealthcare", RMUAppleHealthcareHandler.ServeHTTP)
 	})
 
 	return r
