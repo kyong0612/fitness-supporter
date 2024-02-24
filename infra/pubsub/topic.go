@@ -5,11 +5,15 @@ import (
 
 	"cloud.google.com/go/pubsub"
 	"github.com/cockroachdb/errors"
+	"go.opentelemetry.io/otel"
 )
 
 type Message = pubsub.Message
 
 func (c client) PublishTopic(ctx context.Context, topic string, message Message) error {
+	ctx, span := otel.Tracer("").Start(ctx, "PublishTopic")
+	defer span.End()
+
 	t := c.client.Topic(topic)
 	defer t.Stop()
 
