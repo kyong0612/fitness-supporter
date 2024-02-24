@@ -30,6 +30,6 @@ spec:
             - name: PUBSUB_TOPIC_ANALYZE_IMAGE
               value: fitness-supporter-prd-analyze-image-event
             - name: PUBSUB_TOPIC_RMU_HEALTHCARE_APPLE
-              value: fitness-supporter-prd-rmu-healthcare-apple
+              value: fitness-supporter-prd-rmu-healthcare-apple-event
         - image: asia-northeast1-docker.pkg.dev/kyong0612-lab/fitness-supporter/sidecar/otel:latest
           name: sidecar-otel
