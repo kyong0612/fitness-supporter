@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1/analyzeimagev1connect"
+	"github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1/handlerv1connect"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
@@ -26,19 +26,21 @@ func New() http.Handler {
 
 	r.Use(otelhttp.NewMiddleware("handler"))
 
-	path, analyzeImageHandler := analyzeimagev1connect.NewAnalyzeImageServiceHandler(h)
-
-	// connect-go
-	r.Route(path, func(r chi.Router) {
-		r.Post("/AnalyzeImage", analyzeImageHandler.ServeHTTP)
-	})
-
 	r.Group(func(r chi.Router) {
 		r.Post("/line/webhook", h.PostLINEWebhook)
 	})
 
 	r.Group(func(r chi.Router) {
 		r.Post("/sync/healthcare/apple", h.SyncHealthcareApple)
+	})
+
+	// pubsub endpoints
+	analyzeImagePath, analyzeImageHandler := handlerv1connect.NewAnalyzeImageServiceHandler(h)
+	RMUAppleHealthcarePath, RMUAppleHealthcareHandler := handlerv1connect.NewRMUAppleHealthcareServiceHandler(h)
+
+	r.Group(func(r chi.Router) {
+		r.Post(analyzeImagePath+"AnalyzeImage", analyzeImageHandler.ServeHTTP)
+		r.Post(RMUAppleHealthcarePath+"RMUAppleHealthcare", RMUAppleHealthcareHandler.ServeHTTP)
 	})
 
 	return r

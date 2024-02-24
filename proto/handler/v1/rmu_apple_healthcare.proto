@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.handler.v1;
+
+option go_package = "github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1;handlerv1";
+
+message RMUAppleHealthcareRequest {
+  string object_path = 1;
+}
+
+message RMUAppleHealthcareResponse {
+  bool ok = 1;
+}
+
+service RMUAppleHealthcareService {
+  rpc RMUAppleHealthcare(RMUAppleHealthcareRequest) returns (RMUAppleHealthcareResponse) {}
+}

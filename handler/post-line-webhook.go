@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
@@ -15,6 +16,7 @@ import (
 	"github.com/kyong0612/fitness-supporter/infra/gemini"
 	"github.com/kyong0612/fitness-supporter/infra/line"
 	"github.com/kyong0612/fitness-supporter/infra/pubsub"
+	handlerv1 "github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1"
 	"go.opentelemetry.io/otel"
 )
 
@@ -109,7 +111,7 @@ func generateReply(ctx context.Context, lineClient line.Client, event line.Messa
 
 // TODO: too long
 //
-//nolint:funlen
+//nolint:funlen,cyclop
 func generateReplyByImage(
 	ctx context.Context,
 	lineClient line.Client,
@@ -159,7 +161,15 @@ func generateReplyByImage(
 		return "", errors.Wrap(err, "failed to create pubsub client")
 	}
 
-	topicMsg, err := pubsub.NewAnalyzeImageTopic("TODO:", filePath)
+	data, err := json.Marshal(handlerv1.AnalyzeImageRequest{
+		ImageUrl: filePath,
+		UserId:   "TODO:",
+	})
+	if err != nil {
+		return "", errors.Wrap(err, "failed to marshal analyze image request")
+	}
+
+	topicMsg, err := pubsub.NewTopic(data, "")
 	if err != nil {
 		return "", errors.Wrap(err, "failed to create topic message")
 	}

@@ -16,8 +16,9 @@ type config struct {
 
 	GeminiAPIKey string `env:"GEMINI_API_KEY,required"`
 
-	GCSBucketFitnessSupporter string `env:"GCS_BUCKET_FITNESS_SUPPORTER,required"`
-	PubSubTopicAnalyzeImage   string `env:"PUBSUB_TOPIC_ANALYZE_IMAGE,required"`
+	GCSBucketFitnessSupporter     string `env:"GCS_BUCKET_FITNESS_SUPPORTER,required"`
+	PubSubTopicAnalyzeImage       string `env:"PUBSUB_TOPIC_ANALYZE_IMAGE,required"`
+	PubSubTopicRMUHealthcareApple string `env:"PUBSUB_TOPIC_RMU_HEALTHCARE_APPLE,required"`
 }
 
 var cfg config
