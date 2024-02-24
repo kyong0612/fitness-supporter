@@ -2,7 +2,7 @@
 //
 // Source: proto/handler/v1/analyse_image.proto
 
-package analyzeimagev1connect
+package handlerv1connect
 
 import (
 	connect "connectrpc.com/connect"
