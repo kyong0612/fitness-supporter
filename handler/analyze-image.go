@@ -107,7 +107,7 @@ func (h handler) AnalyzeImage(ctx context.Context, req *connect.Request[handlerv
 	res := connect.NewResponse(&handlerv1.AnalyzeImageResponse{
 		Ok: true,
 	})
-	res.Header().Set("Greet-Version", "v1")
+	res.Header().Set("Handler-Version", "v1")
 
 	return res, nil
 }

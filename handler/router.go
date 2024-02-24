@@ -1,12 +1,13 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1/analyzeimagev1connect"
+	"github.com/kyong0612/fitness-supporter/proto/generated/proto/handler/v1/handlerv1connect"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
@@ -26,11 +27,16 @@ func New() http.Handler {
 
 	r.Use(otelhttp.NewMiddleware("handler"))
 
-	path, analyzeImageHandler := analyzeimagev1connect.NewAnalyzeImageServiceHandler(h)
+	// pubsub endpoints
+	analyzeImagePath, analyzeImageHandler := handlerv1connect.NewAnalyzeImageServiceHandler(h)
+	RMUAppleHealthcarePath, RMUAppleHealthcareHandler := handlerv1connect.NewRMUAppleHealthcareServiceHandler(h)
 
-	// connect-go
-	r.Route(path, func(r chi.Router) {
-		r.Post("/AnalyzeImage", analyzeImageHandler.ServeHTTP)
+	fmt.Println("analyzeImagePath", analyzeImagePath)
+	fmt.Println("RMUAppleHealthcarePath", RMUAppleHealthcarePath)
+
+	r.Group(func(r chi.Router) {
+		r.Post(analyzeImagePath+"AnalyzeImage", analyzeImageHandler.ServeHTTP)
+		r.Post(RMUAppleHealthcarePath+"RMUAppleHealthcare", RMUAppleHealthcareHandler.ServeHTTP)
 	})
 
 	r.Group(func(r chi.Router) {
