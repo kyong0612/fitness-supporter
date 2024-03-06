@@ -1,6 +1,6 @@
 module github.com/kyong0612/fitness-supporter
 
-go 1.22.0
+go 1.22.1
 
 require (
 	cloud.google.com/go/pubsub v1.36.2
@@ -28,7 +28,7 @@ require (
 	golang.org/x/vuln v1.0.4
 	google.golang.org/api v0.167.0
 	google.golang.org/grpc v1.62.0
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 )
 
 require (
