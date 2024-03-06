@@ -41,7 +41,7 @@ exporters:
   otlp/openobserve:
     endpoint: api.openobserve.ai:5081
     headers:
-      Authorization: "Basic ZmVuZGVyc3QwNjEyQGdtYWlsLmNvbTozbDlrNk41ckM4Unh5MTcwWjQyUQ=="
+      Authorization: "TODO: "
       organization: kiyong_organization_2077_A0vz8lYUhIFWpjS
       stream-name: default
     tls:
@@ -56,13 +56,13 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch, memory_limiter, resourcedetection, resource]
-      exporters: [googlemanagedprometheus, googlecloud, otlp/openobserve]
+      exporters: [googlemanagedprometheus, googlecloud]
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [googlecloud, otlp/openobserve]
+      exporters: [googlecloud]
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [googlecloud, otlp/openobserve]
+      exporters: [googlecloud]
 # [END cloudrun_mc_custom_metrics_otel_config]
