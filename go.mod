@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	cloud.google.com/go/pubsub v1.37.0
-	cloud.google.com/go/storage v1.39.0
+	cloud.google.com/go/storage v1.39.1
 	connectrpc.com/connect v1.15.0
 	github.com/bufbuild/buf v1.30.0
 	github.com/caarlos0/env/v10 v10.0.0
