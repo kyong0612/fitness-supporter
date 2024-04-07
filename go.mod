@@ -1,6 +1,6 @@
 module github.com/kyong0612/fitness-supporter
 
-go 1.22.1
+go 1.22.2
 
 require (
 	cloud.google.com/go/pubsub v1.37.0
@@ -24,7 +24,7 @@ require (
 	go.opentelemetry.io/otel v1.24.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.24.0
 	go.opentelemetry.io/otel/sdk v1.24.0
-	golang.org/x/net v0.22.0
+	golang.org/x/net v0.23.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/api v0.172.0
 	google.golang.org/grpc v1.62.1
