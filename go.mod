@@ -17,7 +17,7 @@ require (
 	github.com/google/generative-ai-go v0.10.0
 	github.com/google/uuid v1.6.0
 	github.com/jarcoal/httpmock v1.3.1
-	github.com/line/line-bot-sdk-go/v8 v8.4.0
+	github.com/line/line-bot-sdk-go/v8 v8.5.0
 	github.com/testcontainers/testcontainers-go v0.29.1
 	github.com/testcontainers/testcontainers-go/modules/gcloud v0.29.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.49.0
