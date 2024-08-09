@@ -9,7 +9,6 @@ import (
 	"cloud.google.com/go/pubsub"
 	"github.com/cockroachdb/errors"
 	"github.com/kyong0612/fitness-supporter/infra/config"
-	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/gcloud"
 	"google.golang.org/api/option"
 	"google.golang.org/grpc"
@@ -19,9 +18,9 @@ import (
 func NewMockClient(ctx context.Context) (Client, error) {
 	slog.InfoContext(ctx, "📝 start mock pubsub client")
 
-	pubsubContainer, err := gcloud.RunPubsubContainer(
+	pubsubContainer, err := gcloud.RunPubsub(
 		ctx,
-		testcontainers.WithImage("gcr.io/google.com/cloudsdktool/cloud-sdk:367.0.0-emulators"),
+		"gcr.io/google.com/cloudsdktool/cloud-sdk:367.0.0-emulators",
 		gcloud.WithProjectID(config.Get().GCPProjectID),
 	)
 	if err != nil {
