@@ -38,7 +38,7 @@ func (c client) GenerateContentByText(ctx context.Context, input string) (string
 	ctx, span := otel.Tracer("").Start(ctx, "gemini.GenerateContentByText")
 	defer span.End()
 
-	modal := c.GenerativeModel("gemini-pro")
+	modal := c.GenerativeModel("gemini-1.5-flash")
 
 	resp, err := modal.GenerateContent(ctx, genai.Text(PromptTextReplyInput(input)))
 	if err != nil {
@@ -53,7 +53,7 @@ func (c client) GenerateContentByImage(ctx context.Context, minetype string, inp
 		return "", errors.New("input image is empty")
 	}
 
-	modal := c.GenerativeModel("gemini-pro-vision")
+	modal := c.GenerativeModel("gemini-1.5-flash")
 
 	resp, err := modal.GenerateContent(ctx,
 		genai.Text(PromptImageReplyInput()),
@@ -74,7 +74,7 @@ func (c client) AnalyzeImage(ctx context.Context, minetype string, input []byte)
 		return "", errors.New("input image is empty")
 	}
 
-	modal := c.GenerativeModel("gemini-pro-vision")
+	modal := c.GenerativeModel("gemini-1.5-flash")
 
 	resp, err := modal.GenerateContent(ctx,
 		genai.Text(PromptAnalyzeImageInput()),
