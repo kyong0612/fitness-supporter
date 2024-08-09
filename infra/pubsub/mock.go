@@ -29,7 +29,7 @@ func NewMockClient(ctx context.Context) (Client, error) {
 
 	projectID := pubsubContainer.Settings.ProjectID
 
-	conn, err := grpc.Dial(pubsubContainer.URI, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(pubsubContainer.URI, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to dial pubsub container")
 	}
