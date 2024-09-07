@@ -5,7 +5,7 @@ go 1.22.6
 require (
 	cloud.google.com/go/pubsub v1.42.0
 	cloud.google.com/go/storage v1.43.0
-	connectrpc.com/connect v1.16.0
+	connectrpc.com/connect v1.16.2
 	github.com/bufbuild/buf v1.30.1
 	github.com/caarlos0/env/v10 v10.0.0
 	github.com/cockroachdb/errors v1.11.1
