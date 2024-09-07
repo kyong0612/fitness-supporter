@@ -8,7 +8,7 @@ require (
 	connectrpc.com/connect v1.16.2
 	github.com/bufbuild/buf v1.30.1
 	github.com/caarlos0/env/v10 v10.0.0
-	github.com/cockroachdb/errors v1.11.1
+	github.com/cockroachdb/errors v1.11.3
 	github.com/cosmtrek/air v1.51.0
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/go-chi/chi v1.5.5
@@ -120,7 +120,7 @@ require (
 	github.com/firefart/nonamedreturns v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/fzipp/gocyclo v0.6.0 // indirect
-	github.com/getsentry/sentry-go v0.18.0 // indirect
+	github.com/getsentry/sentry-go v0.27.0 // indirect
 	github.com/ghostiam/protogetter v0.3.5 // indirect
 	github.com/go-critic/go-critic v0.11.2 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
