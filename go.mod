@@ -9,7 +9,7 @@ require (
 	github.com/bufbuild/buf v1.30.1
 	github.com/caarlos0/env/v10 v10.0.0
 	github.com/cockroachdb/errors v1.11.1
-	github.com/cosmtrek/air v1.51.0
+	github.com/cosmtrek/air v1.61.1
 	github.com/fullstorydev/grpcurl v1.9.1
 	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/chi/v5 v5.0.12
