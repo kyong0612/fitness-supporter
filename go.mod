@@ -3,7 +3,7 @@ module github.com/kyong0612/fitness-supporter
 go 1.22.6
 
 require (
-	cloud.google.com/go/pubsub v1.42.0
+	cloud.google.com/go/pubsub v1.49.0
 	cloud.google.com/go/storage v1.43.0
 	connectrpc.com/connect v1.16.2
 	github.com/bufbuild/buf v1.30.1
