@@ -10,7 +10,7 @@ require (
 	github.com/caarlos0/env/v10 v10.0.0
 	github.com/cockroachdb/errors v1.11.1
 	github.com/cosmtrek/air v1.51.0
-	github.com/fullstorydev/grpcurl v1.9.1
+	github.com/fullstorydev/grpcurl v1.9.3
 	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/golangci/golangci-lint v1.57.2
@@ -23,11 +23,11 @@ require (
 	go.opentelemetry.io/otel v1.29.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.25.0
 	go.opentelemetry.io/otel/sdk v1.28.0
-	golang.org/x/net v0.28.0
+	golang.org/x/net v0.33.0
 	golang.org/x/vuln v1.1.3
 	google.golang.org/api v0.196.0
 	google.golang.org/grpc v1.66.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.36.5
 )
 
 require (
@@ -75,7 +75,7 @@ require (
 	github.com/bombsimon/wsl/v4 v4.2.1 // indirect
 	github.com/breml/bidichk v0.2.7 // indirect
 	github.com/breml/errchkjson v0.3.6 // indirect
-	github.com/bufbuild/protocompile v0.10.0 // indirect
+	github.com/bufbuild/protocompile v0.14.1 // indirect
 	github.com/bufbuild/protovalidate-go v0.6.0 // indirect
 	github.com/bufbuild/protoyaml-go v0.1.8 // indirect
 	github.com/butuzov/ireturn v0.3.0 // indirect
@@ -167,7 +167,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jdx/go-netrc v1.0.0 // indirect
 	github.com/jgautheron/goconst v1.7.1 // indirect
-	github.com/jhump/protoreflect v1.16.0 // indirect
+	github.com/jhump/protoreflect v1.17.0 // indirect
 	github.com/jingyugao/rowserrcheck v1.1.1 // indirect
 	github.com/jirfag/go-printf-func-name v0.0.0-20200119135958-7558a9eaa5af // indirect
 	github.com/jjti/go-spancheck v0.5.3 // indirect
@@ -294,16 +294,16 @@ require (
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.26.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/oauth2 v0.22.0 // indirect
-	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
+	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/telemetry v0.0.0-20240522233618-39ace7a40ae7 // indirect
-	golang.org/x/term v0.23.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/term v0.27.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.6.0 // indirect
 	golang.org/x/tools v0.23.0 // indirect
 	google.golang.org/genproto v0.0.0-20240903143218-8af14fe29dc1 // indirect
